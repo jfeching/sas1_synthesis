@@ -212,6 +212,22 @@ async function main() {
   const moon2Response = await fetch('https://raw.githubusercontent.com/jfeching/161_interactive_screensaver/main/src/object_files/green_ball.obj');
   const moon2Text = await moon2Response.text();
   const moon2Data = parseOBJ(moon2Text);
+
+  // Moon 3
+  const moon3Response = await fetch('https://raw.githubusercontent.com/jfeching/161_interactive_screensaver/main/src/object_files/brown_ball.obj');
+  const moon3Text = await moon3Response.text();
+  const moon3Data = parseOBJ(moon3Text);
+
+  // Moon 4
+  const moon4Response = await fetch('https://raw.githubusercontent.com/jfeching/161_interactive_screensaver/main/src/object_files/green_ball.obj');
+  const moon4Text = await moon4Response.text();
+  const moon4Data = parseOBJ(moon4Text);
+
+  // Moon 5
+  const moon5Response = await fetch('https://raw.githubusercontent.com/jfeching/161_interactive_screensaver/main/src/object_files/green_ball.obj');
+  const moon5Text = await moon5Response.text();
+  const moon5Data = parseOBJ(moon5Text);
+
   // Planet
   const planetResponse = await fetch('https://raw.githubusercontent.com/jfeching/161_interactive_screensaver/main/src/object_files/yellow_ball.obj');
   const planetText = await planetResponse.text();
@@ -234,6 +250,9 @@ async function main() {
   const moon1BufferInfo = webglUtils.createBufferInfoFromArrays(gl, moon1Data);
   const planetBufferInfo = webglUtils.createBufferInfoFromArrays(gl, planetData);
   const moon2BufferInfo = webglUtils.createBufferInfoFromArrays(gl, moon2Data);
+  const moon3BufferInfo = webglUtils.createBufferInfoFromArrays(gl, moon3Data);
+  const moon4BufferInfo = webglUtils.createBufferInfoFromArrays(gl, moon4Data);
+  const moon5BufferInfo = webglUtils.createBufferInfoFromArrays(gl, moon5Data);
 
   let transformationMatrix = [
     1, 0, 0, 0,
@@ -251,52 +270,11 @@ async function main() {
   function degToRad(deg) {
     return deg * Math.PI / 180;
   }
-  let speedslider = document.getElementById("speed");
-  let speed_text = document.getElementById("speed_mult");
-  let speed_mult = 1;
 
   let ldx = 1.0, ldy = 1.0, ldz = 1.0;
   let colors = [[1, 0.7, 0.5, 1], [1, 0.7, 0.5, 1], [1, 0.7, 0.5, 1]];
   let addends = [[0.001, 0.001, 0.001, 0], [0.001, 0.001, 0.001, 0], [0.001, 0.001, 0.001, 0]];
-
-  let scaleslider = document.getElementById("scale");
-  let scale_text = document.getElementById("scale_mult");
-  let scale_mult = 1;
-
-  //sliders for light direction
-  let xldslider = document.getElementById("x-lightdir");
-  let yldslider = document.getElementById("y-lightdir");
-  let zldslider = document.getElementById("z-lightdir");
-  let lidiroutput = document.getElementById("lidirVector");
-
-  //sliders to change the speed parameters
-  speedslider.oninput = function () {
-    speed_mult = this.value / 10;
-    speed_text.innerHTML = String(speedslider.value / 10);
-  }
-
-  //sliders to change the scale parameters
-  scaleslider.oninput = function () {
-    scale_mult = this.value / 10;
-    transformationMatrix[0] = 1 * parseFloat(scale_mult);
-    transformationMatrix[5] = 1 * parseFloat(scale_mult);
-    scale_text.innerHTML = String(scaleslider.value / 10);
-  }
-
-  //sliders to change the light direction parameters (x y z)
-  xldslider.oninput = function () {
-    ldx = this.value / 10;
-    lidiroutput.innerHTML = "x: " + String(xldslider.value / 10) + " y: " + String(yldslider.value / 10) + " z: " + String(zldslider.value / 10);
-  }
-  yldslider.oninput = function () {
-    ldy = this.value / 10;
-    lidiroutput.innerHTML = "x: " + String(xldslider.value / 10) + " y: " + String(yldslider.value / 10) + " z: " + String(zldslider.value / 10);
-  }
-  zldslider.oninput = function () {
-    ldz = this.value / 10;
-    lidiroutput.innerHTML = "x: " + String(xldslider.value / 10) + " y: " + String(yldslider.value / 10) + " z: " + String(zldslider.value / 10);
-  }
-
+  let speed_mult = 1;
   //listens to keyboard events
   let sliders = document.getElementById("sliders");
   let credits = document.getElementById("credits");
@@ -477,6 +455,97 @@ async function main() {
     });
     // calls gl.drawArrays or gl.drawElements
     webglUtils.drawBufferInfo(gl, moon2BufferInfo);
+
+
+    /**
+     * MOON 3
+     * Procedure is the same for MOON 1
+     */
+    var moon3Translate = [-2, 3, 0];
+    var moon3Rotate = time * 0.8;
+    var moon3Revolve = -time * 0.8;
+
+    // sets the revolution
+    const moon3Uniforms = {
+      u_lightDirection: m4.normalize([-1, 3, 5]),
+      u_matrix: computeMatrix(viewProjectionMatrix, moon3Translate, moon3Rotate, moon3Revolve),
+    };
+
+    // calls gl.uniform
+    webglUtils.setUniforms(meshProgramInfo, moon3Uniforms);
+    // calls gl.bindBuffer, gl.enableVertexAttribArray, gl.vertexAttribPointer
+    webglUtils.setBuffersAndAttributes(gl, meshProgramInfo, moon3BufferInfo);
+    // calls gl.uniform
+    // u_world must match rotate * revolve, thus we have multiply
+    // if not, maiiwan ang calculation ng light direction
+    webglUtils.setUniforms(meshProgramInfo, {
+      u_world: m4.multiply(m4.yRotation(moon3Rotate), m4.yRotation(moon3Revolve)),
+      u_diffuse: colors[1],
+      u_lightDirection: [ldx, ldy, ldz],
+      u_transformation: transformationMatrix,
+    });
+    // calls gl.drawArrays or gl.drawElements
+    webglUtils.drawBufferInfo(gl, moon3BufferInfo);
+
+
+    //moon 4
+    var moon4Translate = [5, 0, 0];
+    var moon4Rotate = time * 0.4;
+    var moon4Revolve = time * 0.4;
+
+    updateColor(colors, addends);
+
+    // sets the revolution
+    const moon4Uniforms = {
+      u_lightDirection: m4.normalize([-1, 3, 5]),
+      u_matrix: computeMatrix(viewProjectionMatrix, moon4Translate, moon4Rotate, moon4Revolve),
+    };
+
+    // calls gl.uniform
+    webglUtils.setUniforms(meshProgramInfo, moon4Uniforms);
+    // calls gl.bindBuffer, gl.enableVertexAttribArray, gl.vertexAttribPointer
+    webglUtils.setBuffersAndAttributes(gl, meshProgramInfo, moon4BufferInfo);
+    // calls gl.uniform
+    // u_world must match rotate * revolve, thus we have multiply
+    // if not, maiiwan ang calculation ng light direction
+    webglUtils.setUniforms(meshProgramInfo, {
+      u_world: m4.multiply(m4.yRotation(moon4Rotate), m4.yRotation(moon4Revolve)),
+      u_diffuse: colors[0],
+      u_lightDirection: [ldx, ldy, ldz],
+      u_transformation: transformationMatrix,
+    });
+    // calls gl.drawArrays or gl.drawElements
+    webglUtils.drawBufferInfo(gl, moon4BufferInfo);
+
+    /**
+     * MOON 5
+     * Procedure is the same for MOON 1
+     */
+    var moon5Translate = [1, -3, 0];
+    var moon5Rotate = time * 0.8;
+    var moon5Revolve = -time * 0.8;
+
+    // sets the revolution
+    const moon5Uniforms = {
+      u_lightDirection: m4.normalize([-1, 3, 5]),
+      u_matrix: computeMatrix(viewProjectionMatrix, moon5Translate, moon5Rotate, moon5Revolve),
+    };
+
+    // calls gl.uniform
+    webglUtils.setUniforms(meshProgramInfo, moon5Uniforms);
+    // calls gl.bindBuffer, gl.enableVertexAttribArray, gl.vertexAttribPointer
+    webglUtils.setBuffersAndAttributes(gl, meshProgramInfo, moon5BufferInfo);
+    // calls gl.uniform
+    // u_world must match rotate * revolve, thus we have multiply
+    // if not, maiiwan ang calculation ng light direction
+    webglUtils.setUniforms(meshProgramInfo, {
+      u_world: m4.multiply(m4.yRotation(moon5Rotate), m4.yRotation(moon5Revolve)),
+      u_diffuse: colors[1],
+      u_lightDirection: [ldx, ldy, ldz],
+      u_transformation: transformationMatrix,
+    });
+    // calls gl.drawArrays or gl.drawElements
+    webglUtils.drawBufferInfo(gl, moon5BufferInfo);
 
     /**
      * PLANET

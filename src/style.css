@@ -33,25 +33,6 @@ hr {
     align-items: center;
 }
 
-.optionsContainer {
-    display: block;
-    z-index: 1;
-    border-radius: 8px;
-    background-color: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    display: flex;
-    flex-wrap: wrap;
-    position: absolute;
-    align-items: center;
-    justify-content: center;
-    width: 50vh;
-    top: 5%;
-    left: 3%;
-    opacity: 1;
-    animation: slideInLeft 1s;
-}
-
 .creditsContainer {
     display: block;
     z-index: 1;
@@ -91,16 +72,6 @@ hr {
     height: 0;
 }
 
-.lightdirslider,
-.scaleslider,
-.speedslider {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 5%;
-    margin-bottom: 5%;
-}
 
 .welcome {
     margin-bottom: 2%;
@@ -138,7 +109,7 @@ ul {
     50% {
         opacity: 0.2;
     }
-    
+
     100% {
         opacity: 1;
     }
