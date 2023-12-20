@@ -214,17 +214,17 @@ async function main() {
   const moon2Data = parseOBJ(moon2Text);
 
   // Moon 3
-  const moon3Response = await fetch('https://raw.githubusercontent.com/jfeching/161_interactive_screensaver/main/src/object_files/brown_ball.obj');
+  const moon3Response = await fetch('https://raw.githubusercontent.com/jfeching/sas1_synthesis/main/src/object_files/pyramid.obj');
   const moon3Text = await moon3Response.text();
   const moon3Data = parseOBJ(moon3Text);
 
   // Moon 4
-  const moon4Response = await fetch('https://raw.githubusercontent.com/jfeching/161_interactive_screensaver/main/src/object_files/green_ball.obj');
+  const moon4Response = await fetch('https://raw.githubusercontent.com/jfeching/sas1_synthesis/main/src/object_files/cube.obj');
   const moon4Text = await moon4Response.text();
   const moon4Data = parseOBJ(moon4Text);
 
   // Moon 5
-  const moon5Response = await fetch('https://raw.githubusercontent.com/jfeching/161_interactive_screensaver/main/src/object_files/green_ball.obj');
+  const moon5Response = await fetch('https://raw.githubusercontent.com/jfeching/sas1_synthesis/main/src/object_files/cube.obj');
   const moon5Text = await moon5Response.text();
   const moon5Data = parseOBJ(moon5Text);
 
