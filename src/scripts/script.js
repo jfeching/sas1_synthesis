@@ -271,13 +271,23 @@ async function main() {
     return deg * Math.PI / 180;
   }
 
+  const tanaga_collections =
+    ["1. Nature or nurture\n Is it nature or nurture?\n Nature and nurture\n",
+      "2Ganito anf format\n ng isang taaga\n ang lupet pala\n Sana matapos ko\n",
+      "3Ganito anf format\n ng isang taaga\n ang lupet pala\n Sana matapos ko\n",
+      "4Ganito anf format\n ng isang taaga\n ang lupet pala\n Sana matapos ko\n",
+      "5Ganito anf format\n ng isang taaga\n ang lupet pala\n Sana matapos ko\n",
+      "6Ganito anf format\n ng isang taaga\n ang lupet pala\n Sana matapos ko\n"];
+  let collection_pointer = 0;
+
   let ldx = 1.0, ldy = 1.0, ldz = 1.0;
-  let colors = [[1, 0.7, 0.5, 1], [1, 0.7, 0.5, 1], [1, 0.7, 0.5, 1]];
-  let addends = [[0.001, 0.001, 0.001, 0], [0.001, 0.001, 0.001, 0], [0.001, 0.001, 0.001, 0]];
+  let colors = [[1, 0.7, 0.5, 1], [1, 0.7, 0.5, 1], [1, 0.7, 0.5, 1], [1, 0.7, 0.5, 1], [1, 0.7, 0.5, 1], [1, 0.7, 0.5, 1]];
+  let addends = [[0.001, 0.001, 0.001, 0], [0.001, 0.001, 0.001, 0], [0.001, 0.001, 0.001, 0], [0.001, 0.001, 0.001, 0], [0.001, 0.001, 0.001, 0], [0.001, 0.001, 0.001, 0]];
   let speed_mult = 1;
   //listens to keyboard events
   let sliders = document.getElementById("sliders");
   let credits = document.getElementById("credits");
+  document.getElementById("tanaga").innerHTML = tanaga_collections[collection_pointer].split('\n').join('<br>');;
   var isTopView = [false, false];
   let tid;
   document.addEventListener('keydown', (event) => {
@@ -326,6 +336,11 @@ async function main() {
           colors[i][j] = getRandomFloat(0, 1, 2);
         }
       }
+    } else if (event.key == 'Enter') {
+      if (collection_pointer == tanaga_collections.length - 1) collection_pointer = 0;
+      else collection_pointer++;
+
+      document.getElementById("tanaga").innerHTML = tanaga_collections[collection_pointer].split('\n').join('<br>');;
     }
   }, false);
 
@@ -480,7 +495,7 @@ async function main() {
     // if not, maiiwan ang calculation ng light direction
     webglUtils.setUniforms(meshProgramInfo, {
       u_world: m4.multiply(m4.yRotation(moon3Rotate), m4.yRotation(moon3Revolve)),
-      u_diffuse: colors[1],
+      u_diffuse: colors[3],
       u_lightDirection: [ldx, ldy, ldz],
       u_transformation: transformationMatrix,
     });
@@ -510,7 +525,7 @@ async function main() {
     // if not, maiiwan ang calculation ng light direction
     webglUtils.setUniforms(meshProgramInfo, {
       u_world: m4.multiply(m4.yRotation(moon4Rotate), m4.yRotation(moon4Revolve)),
-      u_diffuse: colors[0],
+      u_diffuse: colors[4],
       u_lightDirection: [ldx, ldy, ldz],
       u_transformation: transformationMatrix,
     });
@@ -540,7 +555,7 @@ async function main() {
     // if not, maiiwan ang calculation ng light direction
     webglUtils.setUniforms(meshProgramInfo, {
       u_world: m4.multiply(m4.yRotation(moon5Rotate), m4.yRotation(moon5Revolve)),
-      u_diffuse: colors[1],
+      u_diffuse: colors[5],
       u_lightDirection: [ldx, ldy, ldz],
       u_transformation: transformationMatrix,
     });
