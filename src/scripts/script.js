@@ -205,16 +205,16 @@ async function main() {
   console.log("is error?");
 
   // Moon 1
-  const moon1Response = await fetch('https://raw.githubusercontent.com/jfeching/161_interactive_screensaver/main/src/object_files/brown_ball.obj');
+  const moon1Response = await fetch('https://raw.githubusercontent.com/jfeching/sas1_synthesis/main/src/object_files/green_ball.obj');
   const moon1Text = await moon1Response.text();
   const moon1Data = parseOBJ(moon1Text);
   // Moon 2
-  const moon2Response = await fetch('https://raw.githubusercontent.com/jfeching/161_interactive_screensaver/main/src/object_files/green_ball.obj');
+  const moon2Response = await fetch('https://raw.githubusercontent.com/jfeching/sas1_synthesis/main/src/object_files/cube.obj');
   const moon2Text = await moon2Response.text();
   const moon2Data = parseOBJ(moon2Text);
 
   // Moon 3
-  const moon3Response = await fetch('https://raw.githubusercontent.com/jfeching/sas1_synthesis/main/src/object_files/pyramid.obj');
+  const moon3Response = await fetch('https://raw.githubusercontent.com/jfeching/sas1_synthesis/main/src/object_files/green_ball.obj');
   const moon3Text = await moon3Response.text();
   const moon3Data = parseOBJ(moon3Text);
 
@@ -224,12 +224,12 @@ async function main() {
   const moon4Data = parseOBJ(moon4Text);
 
   // Moon 5
-  const moon5Response = await fetch('https://raw.githubusercontent.com/jfeching/sas1_synthesis/main/src/object_files/cube.obj');
+  const moon5Response = await fetch('https://raw.githubusercontent.com/jfeching/sas1_synthesis/main/src/object_files/brown_ball.obj');
   const moon5Text = await moon5Response.text();
   const moon5Data = parseOBJ(moon5Text);
 
   // Planet
-  const planetResponse = await fetch('https://raw.githubusercontent.com/jfeching/161_interactive_screensaver/main/src/object_files/yellow_ball.obj');
+  const planetResponse = await fetch('https://raw.githubusercontent.com/jfeching/sas1_synthesis/main/src/object_files/chibi.obj');
   const planetText = await planetResponse.text();
   const planetData = parseOBJ(planetText);
 
@@ -273,11 +273,11 @@ async function main() {
 
   const tanaga_collections =
     ["1. Nature or nurture\n Is it nature or nurture?\n Nature and nurture\n",
-      "2Ganito anf format\n ng isang taaga\n ang lupet pala\n Sana matapos ko\n",
-      "3Ganito anf format\n ng isang taaga\n ang lupet pala\n Sana matapos ko\n",
-      "4Ganito anf format\n ng isang taaga\n ang lupet pala\n Sana matapos ko\n",
-      "5Ganito anf format\n ng isang taaga\n ang lupet pala\n Sana matapos ko\n",
-      "6Ganito anf format\n ng isang taaga\n ang lupet pala\n Sana matapos ko\n"];
+      "2. Amidst our interactions,\n Self shapes through social exchange,\n Both nature and nurture blend,\n Essence from which selves extend.\n",
+      "3. Born and shaped, yet ever-free.\n Threads of choice, a tapestry.\n Self uncaged, embrace the light\n In our growth, its essence glows\n",
+      "4. In the embrace of culture,\n The self finds its unique place\n Roots in customs, soul takes flight.\n Identity, culture mold\n",
+      "5. Stormy seas, young hearts in quest.\n Waves of change, mold and reshape.\n Depths of doubt, find inner flame.\n Self evolves to take control\n",
+      "6. Values, principles as guide,\n Shaping choices, side by side.\n Love's embrace, or shadows chase.\n Risk or retreat, self transcends.\n"];
   let collection_pointer = 0;
 
   let ldx = 1.0, ldy = 1.0, ldz = 1.0;
@@ -536,9 +536,9 @@ async function main() {
      * MOON 5
      * Procedure is the same for MOON 1
      */
-    var moon5Translate = [1, -3, 0];
-    var moon5Rotate = time * 0.8;
-    var moon5Revolve = -time * 0.8;
+    var moon5Translate = [1, -3.8, 0];
+    var moon5Rotate = time * 0.7;
+    var moon5Revolve = time * 0.5;
 
     // sets the revolution
     const moon5Uniforms = {
@@ -566,7 +566,7 @@ async function main() {
      * PLANET
      * Procedure is same except no translate and revolve
     */
-    var planetTranslate = [0, 0, 0];
+    var planetTranslate = [0, -3, 0];
     var planetRotate = -time;
     var planetRevolve = 0;
 
